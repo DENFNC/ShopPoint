@@ -9,8 +9,8 @@ from app.config import settings
 class S3Storage:
     def __init__(self):
         self.config = {
-            'aws_access_key_id': 'XI1UIr0o8FdIOjyYnf12',
-            'aws_secret_access_key': 'arZziGakt35B9mOqnL5E1ReXFzFHc6EaCpABo4Fe'
+            'aws_access_key_id': 'obvLZeyhjkLuhKQhfKsE',
+            'aws_secret_access_key': 'DhgUrpKRbSziu4Xu262ARF4NkCE6wcnzJLTqj2mu'
         }
         self.session = Session(**self.config)
         self.url = settings.S3_PUBLIC_PRODUCTS_URL

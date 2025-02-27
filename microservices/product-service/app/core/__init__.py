@@ -1,2 +1,2 @@
-from .utils import *
-from .dependencies import *
+from .core_utils import *
+from .core_dependencies import *

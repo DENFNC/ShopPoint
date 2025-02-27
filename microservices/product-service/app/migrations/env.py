@@ -6,9 +6,10 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from app.backend.db import Base
 from app.models import (
-    products,
-    product_images,
-    product_categories
+    model_products,
+    model_product_images,
+    model_product_categories,
+    model_categories
 )
 
 from alembic import context

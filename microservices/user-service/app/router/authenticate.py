@@ -1,11 +1,12 @@
 from typing import Annotated
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Body, Depends, status
 from fastapi.security import OAuth2PasswordRequestForm
 from redis.asyncio import Redis
 
 
 from app.core import UserVerification, get_user_verification, get_jwt_service, JWTService
 from app.service import authenticate_user_service
+from app.service import update_access_token_service
 from app.backend import get_redis
 
 
@@ -31,6 +32,14 @@ async def authenticate_user(
 
 @router.post('/refresh')
 async def update_token(
-    redis: Annotated[Redis, Depends(get_redis)]
+    redis: Annotated[Redis, Depends(get_redis)],
+    service: Annotated[JWTService, Depends(get_jwt_service)],
+    sid: str = Body(...)
 ):
-    pass
+    result = await update_access_token_service(
+        redis=redis,
+        sid=sid,
+        service=service
+    )
+
+    return result

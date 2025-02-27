@@ -47,8 +47,9 @@ async def create_product_service(
         name=create_product.name,
         description=create_product.description,
         price=create_product.price,
-        supplier_id=create_product.supplier_id
     )
+
+    product.product_categories
 
     db.add(product)
     await db.commit()
@@ -68,7 +69,6 @@ async def update_product_service(
             name=update_product.name,
             description=update_product.description,
             price=update_product.price,
-            supplier_id=update_product.supplier_id
         )
     )
 

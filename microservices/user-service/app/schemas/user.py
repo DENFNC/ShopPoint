@@ -8,7 +8,6 @@ class UserBase(BaseModel):
     email: EmailStr
     first_name: Optional[str] = Field(None, max_length=50)
     last_name: Optional[str] = Field(None, max_length=50)
-    is_active: bool = True
 
     model_config = ConfigDict(
         from_attributes=True
@@ -24,7 +23,6 @@ class UserUpdate(BaseModel):
     email: Optional[EmailStr] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
-    is_active: Optional[bool] = None
 
 
 class UserInDB(UserBase):

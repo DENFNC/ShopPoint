@@ -45,6 +45,13 @@ async def create_product_image_service(
     await validator.file_validate()
     change_name = f'{uuid.uuid4()}{Path(file.filename).suffix}'
 
+    await s3.upload_object(
+        body=file.file,
+        bucket_name='product-images',
+        key=f'public/{change_name}',
+        content_type=mimetype
+    )
+
     image = ProductImage(
         product_id=product_id,
         image_url=f'{settings.S3_PUBLIC_PRODUCTS_URL}/product-images/public/{change_name}',
@@ -53,13 +60,6 @@ async def create_product_image_service(
 
     db.add(image)
     await db.commit()
-
-    await s3.upload_object(
-        body=file.file,
-        bucket_name='product-images',
-        key=f'public/{change_name}',
-        content_type=mimetype
-    )
 
 
 async def get_product_image_service(

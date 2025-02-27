@@ -1,0 +1,121 @@
+services:
+  postgres:
+    image: postgres:17.3-alpine3.21
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - shoppoint
+
+  redis:
+    image: redis:alpine3.21
+    container_name: redis
+    restart: always
+    volumes:
+      - redis:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - shoppoint
+
+  minio:
+    image: bitnami/minio:2025.2.18-debian-12-r2
+    container_name: minio
+    environment:
+      - MINIO_ROOT_USER=adminuser
+      - MINIO_ROOT_PASSWORD=securepassword123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio:/data
+    networks:
+      - shoppoint
+
+  nginx:
+    image: nginx:1.27.4-alpine
+    container_name: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - C:/code/ShopPoint/api-gateway/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - shoppoint
+
+  user_service:
+    build:
+      context: ./microservices/user-service/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - shoppoint
+
+  supplier_service:
+    build:
+      context: ./microservices/supplier-service/
+      dockerfile: Dockerfile
+    ports:
+      - "8011:8000"
+    networks:
+      - shoppoint
+  review_service:
+    build:
+      context: ./microservices/review-service/
+      dockerfile: Dockerfile
+    ports:
+      - "8021:8000"
+    networks:
+      - shoppoint
+
+  product_service:
+    build:
+      context: ./microservices/product-service/
+      dockerfile: Dockerfile
+    ports:
+      - "8031:8000"
+    networks:
+      - shoppoint
+
+  order_service:
+    build:
+      context: ./microservices/order-service/
+      dockerfile: Dockerfile
+    ports:
+      - "8041:8000"
+    networks:
+      - shoppoint
+
+  inventory_service:
+    build:
+      context: ./microservices/inventory_service/
+      dockerfile: Dockerfile
+    ports:
+      - "8051:8000"
+    networks:
+      - shoppoint
+
+  category_service:
+    build:
+      context: ./microservices/category_service/
+      dockerfile: Dockerfile
+    ports:
+      - "8061:8000"
+    networks:
+      - shoppoint
+
+
+volumes:
+  postgres-db:
+  redis:
+  minio:
+
+networks:
+  shoppoint:
+    driver: bridge
+    name: shoppoint
