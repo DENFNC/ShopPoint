@@ -15,9 +15,6 @@ from .service_payment import (
     delete_payment_method_service,
 )
 
-
-from .service_auth import *
-
 from .service_shipping import (
     get_shipping_address_service,
     get_shipping_addresses_service,

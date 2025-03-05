@@ -9,8 +9,6 @@ from app.router import router_user
 from app.router import router_shipping
 from app.router import router_payment
 from app.router import router_wishlist
-from app.router import router_authenticate
-from app.router import router_register
 
 
 router = APIRouter(prefix="/api/v1")
@@ -18,8 +16,6 @@ app = FastAPI()
 
 
 app.include_router(router)
-app.include_router(router_authenticate.router)
-app.include_router(router_register.router)
 app.include_router(router_user.router)
 app.include_router(router_payment.router)
 app.include_router(router_shipping.router)
