@@ -1,9 +1,10 @@
 from fastapi import FastAPI
+from app.router import router_user
+from app.router import router_role
 
 
-app = FastAPI()
+app = FastAPI(debug=True)
 
 
-@app.get('/')
-async def hello_world():
-    return 'Hello!'
+app.include_router(router_user.router)
+app.include_router(router_role.router)

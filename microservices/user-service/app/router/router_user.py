@@ -1,13 +1,21 @@
-from typing import Annotated, Dict, List, Sequence
-from fastapi import APIRouter, Depends, status
+from typing import Annotated
+from typing import Dict
+from typing import Sequence
+from typing import List
+from fastapi import APIRouter
+from fastapi import Depends
+from fastapi import status
 
 
-from app.backend.db import AsyncSession
-from app.backend.session import get_session
-from app.models.users import User
-from app.schemas.user import UserUpdate
-from app.schemas.user import UserResponse
-from app.service import get_active_users, get_active_user, update_user_service, delete_user_service
+from app.models import User
+from app.backend import AsyncSession
+from app.backend import get_session
+from app.schemas import UserUpdate
+from app.schemas import UserResponse
+from app.service import get_active_users
+from app.service import get_active_user
+from app.service import update_user_service
+from app.service import delete_user_service
 
 
 router = APIRouter(prefix='/api/v1/user', tags=['user'])

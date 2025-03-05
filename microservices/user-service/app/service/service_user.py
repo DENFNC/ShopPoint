@@ -1,7 +1,9 @@
 import bcrypt
 
 
-from sqlalchemy import select, update
+from sqlalchemy import select
+from sqlalchemy import delete
+from sqlalchemy import update
 from fastapi import HTTPException, status
 
 
@@ -85,11 +87,8 @@ async def delete_user_service(
     user_id: int
 ):
     await db.execute(
-        update(User)
+        delete(User)
         .where(User.id == user_id)
-        .values(
-            is_active=False
-        )
     )
 
     await db.commit()

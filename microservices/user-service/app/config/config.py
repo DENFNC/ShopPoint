@@ -7,8 +7,8 @@ from pathlib import Path
 
 class Settings(BaseSettings):
     # База данных
-    DATABASE_URL: str
-    RABBITMQ_URL: str
+    DATABASE_URL: str = 'postgresql+asyncpg://postgres:admin@localhost:5432/user_service'
+    # RABBITMQ_URL: str
 
     # Redis
     REDIS_HOST: str = 'localhost'
@@ -50,4 +50,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-oauth2_schema = OAuth2PasswordBearer(tokenUrl=settings.TOKEN_URL)

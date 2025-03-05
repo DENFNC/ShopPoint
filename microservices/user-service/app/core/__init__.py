@@ -1,3 +1,3 @@
-from .security import UserVerification
-from .dependencies import *
-from .jwt import JWTHandler, JWTService
+from .core_security import UserVerification
+from .core_dependencies import *
+from .core_jwt import JWTHandler, JWTService

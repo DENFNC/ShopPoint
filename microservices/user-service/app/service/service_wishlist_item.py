@@ -1,4 +1,6 @@
-from sqlalchemy import select, update
+from sqlalchemy import select
+from sqlalchemy import update
+from sqlalchemy import delete
 
 
 from app.backend import AsyncSession
@@ -75,12 +77,9 @@ async def delete_wishlist_service(
     wishlist_id: int
 ):
     await db.execute(
-        update(WishlistItem)
+        delete(WishlistItem)
         .where(
             WishlistItem.id == wishlist_id
-        )
-        .values(
-            is_active=False
         )
     )
 

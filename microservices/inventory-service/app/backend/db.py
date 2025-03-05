@@ -5,7 +5,7 @@ from app.config import settings
 
 
 engine = create_async_engine(
-    url=settings.BASE_URL,
+    url=settings.DATABASE_URL,
     echo=True
 )
 
@@ -14,6 +14,7 @@ asyncc_session_maker = async_sessionmaker(
     expire_on_commit=False,
     class_=AsyncSession
 )
+
 
 class Base(DeclarativeBase):
     pass

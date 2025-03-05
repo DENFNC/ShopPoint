@@ -1,5 +1,7 @@
 from fastapi import HTTPException, status
-from sqlalchemy import select, update
+from sqlalchemy import select
+from sqlalchemy import update
+from sqlalchemy import delete
 
 
 from app.backend import AsyncSession
@@ -80,10 +82,9 @@ async def delete_payment_method_service(
     payment_id: int
 ) -> None:
     await db.execute(
-        update(PaymentMethod)
-        .where(PaymentMethod.id == payment_id)
-        .values(
-            is_active=False
+        delete(PaymentMethod)
+        .where(
+            PaymentMethod.id == payment_id
         )
     )
 

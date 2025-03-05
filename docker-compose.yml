@@ -56,20 +56,12 @@ services:
     networks:
       - shoppoint
 
-  supplier_service:
-    build:
-      context: ./microservices/supplier-service/
-      dockerfile: Dockerfile
-    ports:
-      - "8011:8000"
-    networks:
-      - shoppoint
   review_service:
     build:
       context: ./microservices/review-service/
       dockerfile: Dockerfile
     ports:
-      - "8021:8000"
+      - "8011:8000"
     networks:
       - shoppoint
 
@@ -78,7 +70,7 @@ services:
       context: ./microservices/product-service/
       dockerfile: Dockerfile
     ports:
-      - "8031:8000"
+      - "8021:8000"
     networks:
       - shoppoint
 
@@ -87,25 +79,16 @@ services:
       context: ./microservices/order-service/
       dockerfile: Dockerfile
     ports:
-      - "8041:8000"
+      - "8031:8000"
     networks:
       - shoppoint
 
   inventory_service:
     build:
-      context: ./microservices/inventory_service/
+      context: ./microservices/inventory-service/
       dockerfile: Dockerfile
     ports:
-      - "8051:8000"
-    networks:
-      - shoppoint
-
-  category_service:
-    build:
-      context: ./microservices/category_service/
-      dockerfile: Dockerfile
-    ports:
-      - "8061:8000"
+      - "8041:8000"
     networks:
       - shoppoint
 

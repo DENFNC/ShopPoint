@@ -1,4 +1,6 @@
-from sqlalchemy import select, update
+from sqlalchemy import select
+from sqlalchemy import update
+from sqlalchemy import delete
 from fastapi import HTTPException, status
 
 
@@ -93,11 +95,8 @@ async def delete_shipping_address_service(
     address_id: int
 ):
     await db.execute(
-        update(ShippingAddress)
+        delete(ShippingAddress)
         .where(
             ShippingAddress.id == address_id
-        )
-        .values(
-            is_active=False
         )
     )

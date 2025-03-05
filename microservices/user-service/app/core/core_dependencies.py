@@ -2,8 +2,8 @@ from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
 from sqlalchemy import select
-from app.core.security import UserVerification
-from app.core.jwt import JWTHandler, JWTService
+from app.core.core_security import UserVerification
+from app.core.core_jwt import JWTHandler, JWTService
 from app.backend import AsyncSession, get_session
 from app.models import User
 
