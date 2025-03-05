@@ -8,7 +8,7 @@ class BaseJWT(BaseModel):
     sid: str
     iat: int
     exp: int
-    # roles: List[str]
+    roles: List[str]
 
 
 class RotationJWT(BaseModel):

@@ -1,5 +1,7 @@
 from typing import Annotated
 from fastapi import Depends
+from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -7,6 +9,7 @@ from app.core.core_auth import AuthManager
 from app.core.core_jwt import JWTCore, ManagerJWT
 from app.backend import get_session
 from app.schemas import RotationJWT
+from app.models import AuthUser
 
 
 def get_auth(db: Annotated[AsyncSession, Depends(get_session)]) -> AuthManager:
@@ -29,6 +32,18 @@ def get_current_username(
     username: str = token.get("sub")
 
     return username
+
+
+async def get_current_username_in_db(
+    db: Annotated[AsyncSession, Depends(get_session)],
+    username: str
+):
+    result = await db.scalars(
+        select(AuthUser)
+        .options(
+            joinedload(AuthUser.role)
+        )
+    )
 
 
 def get_current_session_id(

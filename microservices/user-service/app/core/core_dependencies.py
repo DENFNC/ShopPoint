@@ -1,10 +1,8 @@
-from typing import Annotated
-
-from fastapi import Depends, HTTPException, status
+from fastapi import HTTPException, status
 from sqlalchemy import select
-from app.core.core_security import UserVerification
-from app.core.core_jwt import JWTHandler, JWTService
-from app.backend import AsyncSession, get_session
+
+
+from app.backend import AsyncSession
 from app.models import User
 
 
@@ -25,15 +23,3 @@ async def get_current_username(
         )
 
     return result
-
-
-async def get_user_verification(db: Annotated[AsyncSession, Depends(get_session)]) -> UserVerification:
-    return UserVerification(db=db)
-
-
-async def get_jwt_handler() -> JWTHandler:
-    return JWTHandler()
-
-
-async def get_jwt_service() -> JWTService:
-    return JWTService()
