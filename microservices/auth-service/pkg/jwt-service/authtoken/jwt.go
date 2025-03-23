@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/google/uuid"
 )
 
 type TokenManager struct {
@@ -15,10 +14,10 @@ type TokenManager struct {
 
 type CustomClaims struct {
 	jwt.RegisteredClaims
-	SessionId uuid.UUID `json:"sid"`
+	SessionId string `json:"sid"`
 }
 
-func (tm *TokenManager) GenerateToken(sub string, sid uuid.UUID) (string, error) {
+func (tm *TokenManager) GenerateToken(sub string, sid string) (string, error) {
 	privKey, err := jwt.ParseRSAPrivateKeyFromPEM(tm.PrivateKey)
 
 	if err != nil {

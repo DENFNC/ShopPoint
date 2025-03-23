@@ -1,9 +1,9 @@
 package redis
 
 import (
+	"auth/service/config"
 	"context"
 	"errors"
-	"test/go/config"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -60,7 +60,7 @@ func (c *Client) Get(ctx context.Context, key string) (string, error) {
 }
 
 func (c *Client) Set(ctx context.Context, key string, val any, ttl time.Duration) error {
-	if err := c.client.SetEx(ctx, key, val, ttl).Err(); err != nil {
+	if err := c.client.SetEx(ctx, key, val, ttl*time.Second).Err(); err != nil {
 		return err
 	}
 
