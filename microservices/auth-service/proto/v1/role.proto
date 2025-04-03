@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+
+package role.v1;
+
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+option go_package = "github.com/ShopPoint/auth-service/prot/v1/role;v1";
+
+// Представление роли из таблицы Roles
+message Role {
+  int32 role_id = 1;                        // Уникальный ID роли
+  string role_name = 2;                     // Название роли (например, "admin")
+  google.protobuf.Timestamp created_at = 3; // Дата создания
+}
+
+// Запрос на создание новой роли
+message CreateRoleRequest {
+  string role_name = 1;
+}
+
+
+// Запрос для получения роли по ID
+message GetRoleRequest {
+  int32 role_id = 1;
+}
+
+
+// Ответ – данные роли
+message GetRoleResponse {
+  Role role = 1;
+}
+
+
+// Запрос для получения списка всех ролей
+message ListRolesRequest {}
+
+
+message ListRolesResponse {
+  repeated Role roles = 1;
+}
+
+
+// Сервис для управления ролями
+service RoleService {
+  rpc CreateRole(CreateRoleRequest) returns (google.protobuf.Empty);
+  rpc GetRole(GetRoleRequest) returns (GetRoleResponse);
+  rpc ListRoles(ListRolesRequest) returns (ListRolesResponse);
+}

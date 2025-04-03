@@ -1,44 +1,27 @@
 package config
 
 import (
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
 )
 
 type Config struct {
-	DB    *PostgresDB
-	Redis *RedisConfig
+	Server *ServerConfig
 }
 
-type PostgresDB struct {
-	DSN string
-	URL string
+type ServerConfig struct {
+	Addr string
 }
 
-type RedisConfig struct {
-	Addr     string
-	Username string
-	Password string
-}
-
-func LoadConfig(path string) *Config {
-	if err := godotenv.Load(path); err != nil {
-		log.Fatal(err)
-		return nil
+func LoadConfig(filepath string) (*Config, error) {
+	if err := godotenv.Load(filepath); err != nil {
+		return nil, err
 	}
 
-	config := &Config{
-		DB: &PostgresDB{
-			DSN: os.Getenv("POSTGRES_DSN"),
-			URL: os.Getenv("POSTGRES_URL"),
+	return &Config{
+		Server: &ServerConfig{
+			Addr: os.Getenv("SERVER_ADDR"),
 		},
-		Redis: &RedisConfig{
-			Addr:     os.Getenv("REDIS_ADDR"),
-			Password: os.Getenv("REDIS_PASS"),
-		},
-	}
-
-	return config
+	}, nil
 }

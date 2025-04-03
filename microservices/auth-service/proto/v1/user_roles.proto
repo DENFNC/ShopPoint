@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+
+package userrole.v1;
+
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+
+option go_package = "github.com/ShopPoint/auth-service/prot/v1/userrole;v1";
+
+
+// Запрос на назначение роли пользователю
+message AssignRoleRequest {
+  int32 auth_user_uuid = 1;
+  int32 role_name = 2;
+}
+
+
+// Запрос на удаление роли у пользователя
+message RemoveRoleRequest {
+  int32 auth_user_uuid = 1;
+  int32 role_name = 2;
+}
+
+
+// Для получения списка ролей, назначенных пользователю,
+// можно вернуть более подробную информацию о назначении.
+message RoleAssignment {
+  int32 role_id = 1;
+  string role_name = 2;
+  google.protobuf.Timestamp assigned_at = 3;
+}
+
+
+message ListUserRolesRequest {
+  int32 auth_user_id = 1;
+}
+
+
+message ListUserRolesResponse {
+  repeated RoleAssignment assignments = 1;
+}
+
+
+// Сервис для работы с назначением ролей пользователям
+service UserRoleService {
+  rpc AssignRole(AssignRoleRequest) returns (google.protobuf.Empty);
+  rpc RemoveRole(RemoveRoleRequest) returns (google.protobuf.Empty);
+  rpc ListUserRoles(ListUserRolesRequest) returns (ListUserRolesResponse);
+}
